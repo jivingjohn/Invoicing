@@ -1,0 +1,78 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Invoicing.Models
+{
+    public abstract class BaseModel
+    {
+        [UIHint("Hidden")]
+        Guid _Id;
+
+        public virtual Guid Id
+        {
+            get
+            {
+                return _Id;
+            }
+            protected set
+            {
+                _Id = value;
+            }
+        }
+
+        public bool IsTransient()
+        {
+            return this.Id == default(Guid);
+        }
+
+        public string CreateText
+        {
+            get
+            {
+                return string.Concat("Create a new ", ModelName);
+            }
+        }
+
+        public string UpdateText
+        {
+            get
+            {
+                return string.Concat("Update ", ModelName, " details");
+            }
+        }
+
+        public string DeleteText
+        {
+            get
+            {
+                return string.Concat("Delete this ", ModelName);
+            }
+        }
+
+        public ControllerDetails AddForm
+        {
+            get
+            {
+                return new ControllerDetails 
+                { 
+                    Action = "Add", 
+                    Controller = ModelName 
+                };
+            }
+        }
+
+        public string ModelName
+        {
+            get
+            {
+                return this.GetType().Name.Replace("Model", "");
+            }
+        }
+    }
+
+    public class ControllerDetails
+    {
+        public string Action { get; set; }
+        public string Controller { get; set; }
+    }
+}
