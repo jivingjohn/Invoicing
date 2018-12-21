@@ -26,9 +26,30 @@ namespace Invoicing.Controllers
             return _invoicingContext; 
         }
 
-        public bool emptyModel(BaseModel baseModel)
+        public bool emptyModel<T>(T entity) where T : BaseModel
         {
-            return !(baseModel == null);
+            if (entity == null)
+            {
+                return true;
+            }
+
+            Type type = typeof(T);
+
+            var compare = (T)Activator.CreateInstance(type);
+
+            foreach (System.Reflection.PropertyInfo pi in type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            {
+                object entityValue = type.GetProperty(pi.Name).GetValue(entity, null);
+                object compareValue = type.GetProperty(pi.Name).GetValue(compare, null);
+
+                if (entityValue != compareValue)
+                {
+                    // Something has been filled in
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

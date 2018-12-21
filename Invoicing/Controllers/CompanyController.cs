@@ -28,7 +28,7 @@ namespace Invoicing.Controllers
             if(emptyModel(companyModel))
             {
                 // Haven't filled in the form yet
-                return View(new CompanyModel());
+                return View(companyModel);
             }
 
             if (ModelState.IsValid)
@@ -37,7 +37,7 @@ namespace Invoicing.Controllers
                 if (_companyService.AddEntry(companyModel))
                 {
                     // Add was successful
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
