@@ -1,5 +1,4 @@
-﻿using System;
-using Invoicing.Models;
+﻿using Invoicing.Models;
 
 namespace Invoicing.Interfaces
 {

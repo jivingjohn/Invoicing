@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Invoicing.Models;
 using System.Diagnostics;
-using Invoicing.DataAccessLayer;
-using Microsoft.EntityFrameworkCore;
+using Invoicing.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,16 +9,8 @@ namespace Invoicing.Controllers
 {
     public abstract class BaseController : Controller
     {
-        private readonly InvoicingContext _invoicingContext;
-
-        public BaseController(InvoicingContext invoicingContext)
-        {
-            _invoicingContext = invoicingContext;    
-        }
-
-        public InvoicingContext GetContext()
-        {
-            return _invoicingContext; 
+        public BaseController()
+        {   
         }
 
         public bool emptyModel<T>(T entity) where T : BaseModel

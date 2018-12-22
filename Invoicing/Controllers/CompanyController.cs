@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Invoicing.Interfaces;
 using Invoicing.Models;
-using Invoicing.Services;
-using Invoicing.DataAccessLayer;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +8,11 @@ namespace Invoicing.Controllers
 {
     public class CompanyController : BaseController
     {
-        private CompanyService _companyService;
+        private ICompanyInterface _companyInterface;
         #region constructor
-        public CompanyController(InvoicingContext invoicingContext) : base(invoicingContext)
+        public CompanyController(ICompanyInterface companyInterface)
         {
-            _companyService = new CompanyService(GetContext());
+            _companyInterface = companyInterface;
         }
         #endregion
 
@@ -34,7 +29,7 @@ namespace Invoicing.Controllers
             if (ModelState.IsValid)
             {
                 // Add the Company
-                if (_companyService.AddEntry(companyModel))
+                if (_companyInterface.AddEntry(companyModel))
                 {
                     // Add was successful
                     return RedirectToAction("Index", "Home");
