@@ -10,10 +10,6 @@ namespace Invoicing.Controllers
 {
     public abstract class BaseController : Controller
     {
-        public BaseController()
-        {   
-        }
-
         /// <summary>
         /// Adds an entry.
         /// </summary>
