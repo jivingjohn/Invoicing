@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Invoicing.Interfaces;
+using Invoicing.Services;
 
 namespace Invoicing
 {
@@ -40,6 +42,11 @@ namespace Invoicing
             // Tell DBContext to use SQL Server and to get parameters from ConnectionString
             services.AddDbContext<InvoicingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("InvoicingContext")));
+
+            // Add our services
+            services.AddScoped<ICompanyInterface, CompanyService>();
+            services.AddScoped<IContractInterface, ContractService>();
+            services.AddScoped<IEmployeeInterface, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

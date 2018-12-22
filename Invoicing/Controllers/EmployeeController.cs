@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoicing.Controllers
 {
-    public class CompanyController : BaseController
+    public class EmployeeController : BaseController
     {
-        private ICompanyInterface _companyInterface;
+        private IEmployeeInterface _employeeInterface;
         #region constructor
-        public CompanyController(ICompanyInterface companyInterface)
+        public EmployeeController(IEmployeeInterface employeeInterface)
         {
-            _companyInterface = companyInterface;
+            _employeeInterface = employeeInterface;
         }
         #endregion
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(CompanyModel companyModel)
+        public IActionResult Add(EmployeeModel employeeModel)
         {
-            return AddEntry(companyModel, _companyInterface);           
+            return AddEntry(employeeModel, _employeeInterface);           
         }
     }
 }

@@ -20,11 +20,6 @@ namespace Invoicing.Models
             }
         }
 
-        public bool IsTransient()
-        {
-            return this.Id == default(Guid);
-        }
-
         public string CreateText
         {
             get
@@ -67,6 +62,11 @@ namespace Invoicing.Models
             {
                 return this.GetType().Name.Replace("Model", "");
             }
+        }
+
+        public bool IsTransient()
+        {
+            return this.Id == default(Guid);
         }
     }
 

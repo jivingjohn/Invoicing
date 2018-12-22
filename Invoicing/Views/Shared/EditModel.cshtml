@@ -1,4 +1,4 @@
-﻿@model CompanyModel
+﻿@model BaseModel
 
 @{
     ViewData["Title"] = Html.DisplayTextFor(model => model.CreateText);
@@ -16,14 +16,14 @@
             {
                 @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => p.DisplayName != null))
                 {
-                        <div class="form-group form-inline">
-                            <div class="col col-sm-6">
-                                @Html.Label(property.DisplayName)
-                            </div>
-                            <div class="col col-sm-6">
-                                @Html.Editor(property.PropertyName)
-                            </div>
+                    <div class="form-group form-inline">
+                        <div class="col col-sm-6">
+                            @Html.Label(property.DisplayName)
                         </div>
+                        <div class="col col-sm-6">
+                            @Html.Editor(property.PropertyName)
+                        </div>
+                    </div>
                 }
 
                 @await Html.PartialAsync("SaveButtons")
