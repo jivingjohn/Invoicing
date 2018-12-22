@@ -45,6 +45,8 @@ namespace Invoicing
 
             // Add our services
             services.AddScoped<ICompanyInterface, CompanyService>();
+            services.AddScoped<IContractInterface, ContractService>();
+            services.AddScoped<IEmployeeInterface, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

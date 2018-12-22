@@ -29,3 +29,5 @@
 /Users/john/Projects/Invoicing/Invoicing/obj/Debug/netcoreapp2.2/Invoicing.pdb
 /Users/john/Projects/Invoicing/Invoicing/obj/Debug/netcoreapp2.2/Invoicing.csproj.CopyComplete
 /Users/john/Projects/Invoicing/Invoicing/obj/Debug/netcoreapp2.2/Razor/Views/Shared/EditModel.g.cshtml.cs
+/Users/john/Projects/Invoicing/Invoicing/obj/Debug/netcoreapp2.2/Invoicing.csprojAssemblyReference.cache
+/Users/john/Projects/Invoicing/Invoicing/obj/Debug/netcoreapp2.2/Razor/Views/Shared/Add.g.cshtml.cs

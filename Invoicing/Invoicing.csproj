@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Company\Add.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Views\Company\" />
   </ItemGroup>
 </Project>

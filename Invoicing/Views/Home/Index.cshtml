@@ -8,10 +8,30 @@
 </div>
 
 <div>
-    @using(Html.BeginForm("Add", "Company"))
-    {
-        @Html.AntiForgeryToken()
 
-        <button type="submit" class="btn btn-submit" name="CompanyButton">Add</button>
-    }
+    <ul>
+        <li>
+            @using (Html.BeginForm("Add", "Company"))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-submit" name="CompanyButton">Add a company</button>
+            }
+        </li>
+        <li>
+            @using (Html.BeginForm("Add", "Contract"))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-submit" name="ContractButton">Add a contract</button>
+            }
+        </li>
+        <li>
+            @using (Html.BeginForm("Add", "Employee"))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-submit" name="EmployeeButton">Add an employee</button>
+            }
+        </li>
+    </ul>
+
+    
 </div>
