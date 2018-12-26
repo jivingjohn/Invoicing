@@ -1,0 +1,17 @@
+﻿@model BaseModel
+
+@using (Html.BeginForm(Model.EditForm.Action, Model.EditForm.Controller))
+{
+    @Html.AntiForgeryToken()
+    <!-- Foreach Property that can be set -->
+    foreach (var property in Model.GetType().GetProperties())
+    {
+        if(property.CanWrite)
+        {
+            // we have a settable property
+            @Html.HiddenFor(m => property)
+        }
+    }
+
+    <button type="submit" class="btn btn-submit" name=@Model.EditForm.ButtonName>@Model.EditForm.Action</button>
+}

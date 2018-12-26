@@ -8,16 +8,3 @@
 {
     @await Html.PartialAsync("IQueryableTable", table)
 }
-
-<div>
-    <ul>
-        @foreach (IQueryable<Invoicing.Models.BaseModel> table in Model)
-        {
-            <li>
-                @await Html.PartialAsync("AddNewModel", table.FirstOrDefault())
-            </li>
-        }
-    </ul>
-
-
-</div>

@@ -1,6 +1,7 @@
-﻿@model IQueryable<Invoicing.Models.BaseModel>
+﻿@model IQueryable<BaseModel>
 
 @{
+    // This won't display if model is empty...
     var modelType = Model.FirstOrDefault(); 
 }
 
@@ -26,7 +27,7 @@
                                 }
                             }
                             <th>
-                                <!-- Blank TH for edit button -->
+                                <!-- Blank th for buttons -->
                             </th>
                             <th>
                                 <!-- Blank TH for delete button -->
@@ -52,10 +53,10 @@
                                     }
                                 }
                                 <td>
-                                    @await Html.PartialAsync("AddButton", item)
+                                    @await Html.PartialAsync("ButtonEdit", item)
                                 </td>
                                 <td>
-                                    @await Html.PartialAsync("AddButton", item)
+                                    @await Html.PartialAsync("ButtonDelete", item)
                                 </td>
                             </tr>
                         }
@@ -68,4 +69,7 @@
     {
         <p>No results yet</p>
     }
+    <div>
+        @await Html.PartialAsync("ButtonAdd", modelType)
+    </div>
 </div>

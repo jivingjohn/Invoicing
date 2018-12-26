@@ -56,6 +56,18 @@ namespace Invoicing.Models
             }
         }
 
+        public ControllerDetails EditForm
+        {
+            get
+            {
+                return new ControllerDetails
+                {
+                    Action = "Edit",
+                    Controller = ModelName
+                };
+            }
+        }
+
         public ControllerDetails DeleteForm
         {
             get

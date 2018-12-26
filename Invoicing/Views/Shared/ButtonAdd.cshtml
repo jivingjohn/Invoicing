@@ -3,5 +3,5 @@
 @using (Html.BeginForm(Model.AddForm.Action, Model.AddForm.Controller))
 {
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-submit" name=@Model.AddForm.ButtonName>@Model.CreateText</button>
+    <button type="submit" class="btn btn-submit" name=@Model.AddForm.ButtonName>@Model.AddForm.Action</button>
 }
