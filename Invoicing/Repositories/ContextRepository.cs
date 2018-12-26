@@ -16,7 +16,7 @@ namespace Invoicing.Repositories
 
         public IQueryable<T> GetTable()
         {
-            return _invoicingContext.Set<T>();
+            return _invoicingContext.Set<T>() ?? Enumerable.Empty<T>().AsQueryable();
         }
 
         public T FindEntity(T baseModel)

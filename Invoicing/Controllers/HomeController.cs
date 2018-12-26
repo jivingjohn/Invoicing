@@ -28,7 +28,7 @@ namespace Invoicing.Controllers
             {  
                 _companyInterface.ListEntries(), 
                 _contractInterface.ListEntries(), 
-                _employeeInterface.ListEntries() 
+                _employeeInterface.ListEntries()
             };
 
             return View(model);
