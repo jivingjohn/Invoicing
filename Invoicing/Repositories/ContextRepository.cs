@@ -19,21 +19,21 @@ namespace Invoicing.Repositories
             return _invoicingContext.Set<T>();
         }
 
-        public T GetEntity(T entity)
+        public T FindEntity(T baseModel)
         {
-            return _invoicingContext.Set<T>().Find(entity.Id);
+            return _invoicingContext.Set<T>().Find(baseModel.Id);
         }
 
-        public bool AddRow(T entity)
+        public bool AddEntity(T baseModel)
         {
-            _invoicingContext.Set<T>().Add(entity);
+            _invoicingContext.Set<T>().Add(baseModel);
             return SaveChanges();
 
         }
 
-        public bool DeleteRow(T entity)
+        public bool DeleteEntity(T baseModel)
         {
-            _invoicingContext.Set<T>().Remove(entity);
+            _invoicingContext.Set<T>().Remove(baseModel);
             return SaveChanges();
         }
 

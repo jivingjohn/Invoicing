@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoicing.Controllers
 {
-    public class ContractController : BaseController
+    public class ContractController : BaseController<ContractModel>
     {
         private IContractInterface _contractInterface;
         #region constructor
@@ -20,7 +20,21 @@ namespace Invoicing.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(ContractModel contractModel)
         {
-            return AddEntry(contractModel, _contractInterface);           
+            return AddEntry(contractModel, _contractInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(ContractModel contractModel)
+        {
+            return RequestDeleteEntry(contractModel, _contractInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmDelete(ContractModel contractModel)
+        {
+            return DeleteEntry(contractModel, _contractInterface);
         }
     }
 }

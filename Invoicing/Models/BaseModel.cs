@@ -56,6 +56,30 @@ namespace Invoicing.Models
             }
         }
 
+        public ControllerDetails DeleteForm
+        {
+            get
+            {
+                return new ControllerDetails
+                {
+                    Action = "Delete",
+                    Controller = ModelName
+                };
+            }
+        }
+
+        public ControllerDetails ConfirmDeleteForm
+        {
+            get
+            {
+                return new ControllerDetails
+                {
+                    Action = "ConfirmDelete",
+                    Controller = ModelName
+                };
+            }
+        }
+
         public string ModelName
         {
             get
@@ -74,5 +98,6 @@ namespace Invoicing.Models
     {
         public string Action { get; set; }
         public string Controller { get; set; }
+        public string ButtonName { get { return string.Concat(Action, "Button"); } }
     }
 }

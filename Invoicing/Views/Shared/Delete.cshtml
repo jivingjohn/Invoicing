@@ -1,31 +1,30 @@
 ﻿@model BaseModel
 
 @{
-    ViewData["Title"] = Html.DisplayTextFor(model => model.CreateText);
+    ViewData["Title"] = Html.DisplayTextFor(model => model.DeleteText);
 }
 
 <div class="text-center">
-    <h1 class="display-4">@Html.DisplayTextFor(model => model.CreateText)</h1>
+    <h1 class="display-4">@Html.DisplayTextFor(model => model.DeleteText)</h1>
 </div>
 
 <div class="row">
     <div class="col col-sm-4"></div>
     <div class="col col-sm-4">
         <div class="row">
-            @using (Html.BeginForm(Model.AddForm.Action, Model.AddForm.Controller))
+            @using (Html.BeginForm(Model.DeleteForm.Action, Model.DeleteForm.Controller))
             {
                 @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => p.DisplayName != null))
                 {
                     <div class="form-group form-inline">
                         <div class="col col-sm-6">
-                            @Html.Label(property.DisplayName)
+                            @Html.Display(property.DisplayName)
                         </div>
                         <div class="col col-sm-6">
-                            @Html.Editor(property.PropertyName)
+                            @Html.DisplayText(property.PropertyName)
                         </div>
                     </div>
                 }
-
                 @await Html.PartialAsync("SaveButtons")
             }
         </div>

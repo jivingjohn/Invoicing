@@ -1,37 +1,23 @@
-﻿@{
+﻿@model List<IQueryable<Invoicing.Models.BaseModel>>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (IQueryable<Invoicing.Models.BaseModel> table in Model)
+{
+    @await Html.PartialAsync("IQueryableTable", table)
+}
 
 <div>
-
     <ul>
-        <li>
-            @using (Html.BeginForm("Add", "Company"))
-            {
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-submit" name="CompanyButton">Add a company</button>
-            }
-        </li>
-        <li>
-            @using (Html.BeginForm("Add", "Contract"))
-            {
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-submit" name="ContractButton">Add a contract</button>
-            }
-        </li>
-        <li>
-            @using (Html.BeginForm("Add", "Employee"))
-            {
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-submit" name="EmployeeButton">Add an employee</button>
-            }
-        </li>
+        @foreach (IQueryable<Invoicing.Models.BaseModel> table in Model)
+        {
+            <li>
+                @await Html.PartialAsync("AddNewModel", table.FirstOrDefault())
+            </li>
+        }
     </ul>
 
-    
+
 </div>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoicing.Controllers
 {
-    public class EmployeeController : BaseController
+    public class EmployeeController : BaseController<EmployeeModel>
     {
         private IEmployeeInterface _employeeInterface;
         #region constructor
@@ -20,7 +20,21 @@ namespace Invoicing.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(EmployeeModel employeeModel)
         {
-            return AddEntry(employeeModel, _employeeInterface);           
+            return AddEntry(employeeModel, _employeeInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(EmployeeModel employeeModel)
+        {
+            return RequestDeleteEntry(employeeModel, _employeeInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmDelete(EmployeeModel employeeModel)
+        {
+            return DeleteEntry(employeeModel, _employeeInterface);
         }
     }
 }

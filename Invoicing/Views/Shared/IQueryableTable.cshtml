@@ -1,0 +1,71 @@
+﻿@model IQueryable<Invoicing.Models.BaseModel>
+
+@{
+    var modelType = Model.FirstOrDefault(); 
+}
+
+<div class="row">
+    <div>
+        <h2>@Html.DisplayName(modelType.ModelName) Records</h2>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        if (modelType != null)
+        {
+            <div class="col col-sm-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @foreach (var property in modelType.GetType().GetProperties())
+                            {
+                                if (property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).Any())
+                                {
+                                    <th>
+                                        @Html.Label(property.Name)
+                                    </th>
+                                }
+                            }
+                            <th>
+                                <!-- Blank TH for edit button -->
+                            </th>
+                            <th>
+                                <!-- Blank TH for delete button -->
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @foreach (var property in item.GetType().GetProperties())
+                                {
+                                    if (property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).Any())
+                                    {
+                                        object propValue = property.GetValue(item, null);
+                                        // Get the value of this property from item
+                                        <td>
+                                            @if (propValue != null)
+                                            {
+                                                @Html.Label(propValue.ToString())
+                                            }
+                                        </td>
+                                    }
+                                }
+                                <td>
+                                    @await Html.PartialAsync("AddButton", item)
+                                </td>
+                                <td>
+                                    @await Html.PartialAsync("AddButton", item)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No results yet</p>
+    }
+</div>

@@ -8,7 +8,7 @@ using Invoicing.Interfaces;
 
 namespace Invoicing.Controllers
 {
-    public abstract class BaseController : Controller
+    public abstract class BaseController<T> : Controller where T : BaseModel
     {
         /// <summary>
         /// Adds an entry.
@@ -17,7 +17,7 @@ namespace Invoicing.Controllers
         /// <param name="baseModel">Model to add.</param>
         /// <param name="baseInterface">Interface to use to add with.</param>
         /// <typeparam name="T">The type of the Model.</typeparam>
-        public IActionResult AddEntry<T>(T baseModel, IBaseInterface<T> baseInterface) where T : BaseModel
+        public IActionResult AddEntry(T baseModel, IBaseInterface<T> baseInterface)
         {
             if (IsEmptyModel(baseModel))
             {
@@ -31,7 +31,7 @@ namespace Invoicing.Controllers
                 if (baseInterface.AddEntry(baseModel))
                 {
                     // Add was successful
-                    return RedirectToAction("Index", "Home");
+                    return Home();
                 }
                 else
                 {
@@ -44,13 +44,52 @@ namespace Invoicing.Controllers
             return View(baseModel);
         }
 
+        public IActionResult RequestDeleteEntry(T baseModel, IBaseInterface<T> baseInterface)
+        {
+            if (IsEmptyModel(baseModel))
+            {
+                // No entry to delete
+                return Home();
+            }
+
+            // Find the entry to delete
+            T toDelete = baseInterface.FindEntry(baseModel);
+            if (toDelete != null)
+            {
+                // We have an entry to delete
+                return View(toDelete);
+            }
+
+            // Entry did not exist, may already be deleted
+            return Home();
+        }
+
+        public IActionResult DeleteEntry(T baseModel, IBaseInterface<T> baseInterface)
+        {
+            if (IsEmptyModel(baseModel))
+            {
+                // No entry to delete
+                return Home();
+            }
+
+            // Find the entry to delete
+            T toDelete = baseInterface.FindEntry(baseModel);
+            if (toDelete != null)
+            {
+                // We have an entry to delete
+                baseInterface.RemoveEntry(toDelete);
+            }
+
+            return Home();
+        }
+
         /// <summary>
         /// Tests if the model is empty.
         /// </summary>
         /// <returns><c>true</c>, if empty model, <c>false</c> otherwise.</returns>
         /// <param name="entity">Entity.</param>
         /// <typeparam name="T">The model type.</typeparam>
-        public bool IsEmptyModel<T>(T entity) where T : BaseModel
+        public bool IsEmptyModel(T entity)
         {
             if (entity == null)
             {
@@ -74,6 +113,15 @@ namespace Invoicing.Controllers
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Go home.
+        /// </summary>
+        /// <returns>Redirect to Home Action</returns>
+        public IActionResult Home()
+        {
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

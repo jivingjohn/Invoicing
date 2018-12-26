@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoicing.Controllers
 {
-    public class CompanyController : BaseController
+    public class CompanyController : BaseController<CompanyModel>
     {
         private ICompanyInterface _companyInterface;
         #region constructor
@@ -21,6 +21,20 @@ namespace Invoicing.Controllers
         public IActionResult Add(CompanyModel companyModel)
         {
             return AddEntry(companyModel, _companyInterface);           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(CompanyModel companyModel)
+        {
+            return RequestDeleteEntry(companyModel, _companyInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmDelete(CompanyModel companyModel)
+        {
+            return DeleteEntry(companyModel, _companyInterface);
         }
     }
 }

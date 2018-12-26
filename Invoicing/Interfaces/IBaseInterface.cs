@@ -1,4 +1,5 @@
-﻿using Invoicing.Models;
+﻿using System.Linq;
+using Invoicing.Models;
 
 namespace Invoicing.Interfaces
 {
@@ -6,5 +7,7 @@ namespace Invoicing.Interfaces
     {
         bool AddEntry(T baseModel);
         bool RemoveEntry(T baseModel);
+        T FindEntry(T baseModel);
+        IQueryable<T> ListEntries();
     }
 }
