@@ -5,20 +5,7 @@ namespace Invoicing.Models
 {
     public abstract class BaseModel
     {
-        [UIHint("Hidden")]
-        Guid _Id;
-
-        public virtual Guid Id
-        {
-            get
-            {
-                return _Id;
-            }
-            protected set
-            {
-                _Id = value;
-            }
-        }
+        public Guid Id { get; set; }
 
         public string CreateText
         {

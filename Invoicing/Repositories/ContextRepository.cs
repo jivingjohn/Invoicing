@@ -31,13 +31,19 @@ namespace Invoicing.Repositories
 
         }
 
+        public bool EditEntity(T baseModel)
+        {
+            _invoicingContext.Set<T>().Update(baseModel);
+            return SaveChanges(); 
+        }
+
         public bool DeleteEntity(T baseModel)
         {
             _invoicingContext.Set<T>().Remove(baseModel);
             return SaveChanges();
         }
 
-        public bool SaveChanges()
+        protected bool SaveChanges()
         {
             try
             {

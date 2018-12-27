@@ -35,12 +35,30 @@ namespace Invoicing.Controllers
                 }
                 else
                 {
-                    // Error with saving record
-                    ModelState.AddModelError("Save Error", "Error saving record, please try again");
+                    AddSaveError();
                 }
             }
 
             // Display any errors on screen
+            return View(baseModel);
+        }
+
+        public IActionResult EditEntry(T baseModel, IBaseInterface<T> baseInterface)
+        {
+            // check if something has been modified
+            if (baseInterface.IsModified(baseModel))
+            {
+                // Try and update
+                if(baseInterface.EditEntry(baseModel))
+                {
+                    return Home();
+                }
+                else
+                {
+                    AddSaveError();
+                }
+            }
+
             return View(baseModel);
         }
 
@@ -77,9 +95,17 @@ namespace Invoicing.Controllers
             if (toDelete != null)
             {
                 // We have an entry to delete
-                baseInterface.RemoveEntry(toDelete);
+                if (baseInterface.RemoveEntry(toDelete))
+                {
+                    return Home();
+                }
+                else
+                {
+                    AddSaveError();
+                }
             }
 
+            // return home anyway, didn't delete the entry
             return Home();
         }
 
@@ -122,6 +148,15 @@ namespace Invoicing.Controllers
         public IActionResult Home()
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
+        /// Adds the save error.
+        /// </summary>
+        private void AddSaveError()
+        {
+            // Error with saving record
+            ModelState.AddModelError("Save Error", "Error saving record, please try again");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

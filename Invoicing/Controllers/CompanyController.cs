@@ -20,7 +20,14 @@ namespace Invoicing.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(CompanyModel companyModel)
         {
-            return AddEntry(companyModel, _companyInterface);           
+            return AddEntry(companyModel, _companyInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CompanyModel companyModel)
+        {
+            return EditEntry(companyModel, _companyInterface);
         }
 
         [HttpPost]
