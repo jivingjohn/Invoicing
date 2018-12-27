@@ -25,6 +25,13 @@ namespace Invoicing.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult Edit(EmployeeModel employeeModel)
+        {
+            return EditEntry(employeeModel, _employeeInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(EmployeeModel employeeModel)
         {
             return RequestDeleteEntry(employeeModel, _employeeInterface);

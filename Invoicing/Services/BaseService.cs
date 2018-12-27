@@ -57,10 +57,17 @@ namespace Invoicing.Services
                     if (toCheck != null)
                     {
                         // have something to check
-                        if (original != toCheck)
+                        if (toCheck is IComparable)
                         {
-                            // something has been modified
-                            return true;
+                            if (((IComparable)original).CompareTo((IComparable)toCheck) != 0)
+                            {
+                                // something has been modified
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            // Can't compare, just skip this property
                         }
                     }
                     else

@@ -33,7 +33,13 @@ namespace Invoicing.Repositories
 
         public bool EditEntity(T baseModel)
         {
-            _invoicingContext.Set<T>().Update(baseModel);
+            // Find the object to update
+            T toUpdate = FindEntity(baseModel);
+            // Set each value of the updateable entity to that of the passed entity
+            foreach(var property in toUpdate.GetType().GetProperties().Where(p => p.CanWrite))
+            {
+                property.SetValue(toUpdate, property.GetValue(baseModel, null), null);
+            }
             return SaveChanges(); 
         }
 

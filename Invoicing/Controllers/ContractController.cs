@@ -25,6 +25,13 @@ namespace Invoicing.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult Edit(ContractModel contractModel)
+        {
+            return EditEntry(contractModel, _contractInterface);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(ContractModel contractModel)
         {
             return RequestDeleteEntry(contractModel, _contractInterface);
