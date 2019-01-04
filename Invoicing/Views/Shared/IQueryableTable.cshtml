@@ -27,10 +27,10 @@
                                 }
                             }
                             <th>
-                                <!-- Blank th for buttons -->
+                                <!-- Blank th for edit button -->
                             </th>
                             <th>
-                                <!-- Blank TH for delete button -->
+                                <!-- Blank th for delete button -->
                             </th>
                         </tr>
                     </thead>
@@ -62,7 +62,32 @@
                         }
                     </tbody>
                     <tfoot>
-                        @await Html.PartialAsync("ButtonAdd", modelType)
+                        <tr>
+                            @foreach (var property in modelType.GetType().GetProperties())
+                            {
+                                var displayProperty = property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).SingleOrDefault();
+                                if (displayProperty != null)
+                                {
+                                    <th>
+                                        @if (property == modelType.GetType().GetProperties().First())
+                                        {
+                                            // Put the add button on the left
+                                            @await Html.PartialAsync("ButtonAdd", modelType)
+                                        }
+                                        else
+                                        {
+                                            <!-- Blank th for footer -->
+                                        }
+                                    </th>
+                                }
+                            }
+                            <th>
+                                <!-- Blank th for edit button -->
+                            </th>
+                            <th>
+                                <!-- Blank th for delete button -->
+                            </th>
+                        </tr>
                     </tfoot>
                 </table>
             </div>

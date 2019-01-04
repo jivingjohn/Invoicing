@@ -3,7 +3,7 @@
     <div class="col-sm-6">
         <div class="btn-group" role="group">
             <button class="btn btn-success btn-secondary" type="submit" aria-label="Save" name="Save">Save</button>
-            <button class="btn btn-warning btn-secondary" aria-label="Cancel" name="Cancel" onclick="window.open('/Home/Index','_self')">Cancel</button>
+            @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-warning btn-secondary" })
         </div>
     </div>
 </div>
