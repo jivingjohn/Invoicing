@@ -44,6 +44,7 @@ namespace Invoicing
                 options.UseSqlServer(Configuration.GetConnectionString("InvoicingContext")));
 
             // Add our services
+            services.AddScoped<IActivityInterface, ActivityService>();
             services.AddScoped<ICompanyInterface, CompanyService>();
             services.AddScoped<IContractInterface, ContractService>();
             services.AddScoped<IEmployeeInterface, EmployeeService>();

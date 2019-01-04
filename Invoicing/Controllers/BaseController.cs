@@ -150,10 +150,21 @@ namespace Invoicing.Controllers
                 object entityValue = type.GetProperty(pi.Name).GetValue(entity, null);
                 object compareValue = type.GetProperty(pi.Name).GetValue(compare, null);
 
-                if (entityValue != compareValue)
+                if (entityValue != null && compareValue != null)
                 {
-                    // Something has been filled in
-                    return false;
+                    // something has a value, but could be intentional, like a default
+                    if (entityValue.ToString() != compareValue.ToString())
+                    {
+                        // Something has been filled in
+                        return false;
+                    }
+                }
+                else
+                {
+                    // one could be null but the other have a value
+                    if (entityValue != compareValue)
+                        // something has been filled in
+                        return false;
                 }
             }
 

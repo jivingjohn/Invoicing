@@ -11,12 +11,14 @@ namespace Invoicing.Controllers
 {
     public class HomeController : Controller
     {
+        private IActivityInterface _activityInterface;
         private ICompanyInterface _companyInterface;
         private IContractInterface _contractInterface;
         private IEmployeeInterface _employeeInterface;
 
-        public HomeController(ICompanyInterface companyInterface, IContractInterface contractInterface, IEmployeeInterface employeeInterface)
+        public HomeController(IActivityInterface activityInterface, ICompanyInterface companyInterface, IContractInterface contractInterface, IEmployeeInterface employeeInterface)
         {
+            _activityInterface = activityInterface;
             _companyInterface = companyInterface;
             _contractInterface = contractInterface;
             _employeeInterface = employeeInterface; 
@@ -25,7 +27,8 @@ namespace Invoicing.Controllers
         public IActionResult Index()
         {
             List<IQueryable<BaseModel>> model = new List<IQueryable<BaseModel>>
-            {  
+            {
+                _activityInterface.ListEntries(),
                 _companyInterface.ListEntries(), 
                 _contractInterface.ListEntries(), 
                 _employeeInterface.ListEntries()

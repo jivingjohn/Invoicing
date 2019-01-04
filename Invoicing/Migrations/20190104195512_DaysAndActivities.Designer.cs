@@ -4,14 +4,16 @@ using Invoicing.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Invoicing.Migrations
 {
     [DbContext(typeof(InvoicingContext))]
-    partial class InvoicingContextModelSnapshot : ModelSnapshot
+    [Migration("20190104195512_DaysAndActivities")]
+    partial class DaysAndActivities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,11 +28,13 @@ namespace Invoicing.Migrations
 
                     b.Property<string>("Activity");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<Guid>("DayID");
 
                     b.Property<int>("Hours");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DayID");
 
                     b.ToTable("Activities");
                 });
@@ -81,6 +85,21 @@ namespace Invoicing.Migrations
                     b.ToTable("Contracts");
                 });
 
+            modelBuilder.Entity("Invoicing.Models.DayModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Day")
+                        .IsRequired();
+
+                    b.Property<bool>("Weekday");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Days");
+                });
+
             modelBuilder.Entity("Invoicing.Models.EmployeeModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -92,6 +111,14 @@ namespace Invoicing.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("Invoicing.Models.ActivityModel", b =>
+                {
+                    b.HasOne("Invoicing.Models.DayModel", "Day")
+                        .WithMany()
+                        .HasForeignKey("DayID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
