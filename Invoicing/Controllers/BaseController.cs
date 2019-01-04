@@ -43,6 +43,13 @@ namespace Invoicing.Controllers
             return View(baseModel);
         }
 
+        /// <summary>
+        /// Edits an entry.
+        /// </summary>
+        /// <returns>View Result or Redirect to Home if successful</returns>
+        /// <param name="baseModel">Model to add.</param>
+        /// <param name="baseInterface">Interface to use to add with.</param>
+        /// <typeparam name="T">The type of the Model.</typeparam>
         public IActionResult EditEntry(T baseModel, IBaseInterface<T> baseInterface)
         {
             // check if something has been modified
@@ -62,6 +69,12 @@ namespace Invoicing.Controllers
             return View(baseModel);
         }
 
+        /// <summary>
+        /// Requests to delete an entry.
+        /// </summary>
+        /// <returns>Delete confirmation screen or home if not allowed to delete</returns>
+        /// <param name="baseModel">Base model.</param>
+        /// <param name="baseInterface">Base interface.</param>
         public IActionResult RequestDeleteEntry(T baseModel, IBaseInterface<T> baseInterface)
         {
             if (IsEmptyModel(baseModel))
@@ -82,6 +95,12 @@ namespace Invoicing.Controllers
             return Home();
         }
 
+        /// <summary>
+        /// Deletes an entry.
+        /// </summary>
+        /// <returns>Returns home if successful or the reason for not deleting in a ViewModel</returns>
+        /// <param name="baseModel">Base model.</param>
+        /// <param name="baseInterface">Base interface.</param>
         public IActionResult DeleteEntry(T baseModel, IBaseInterface<T> baseInterface)
         {
             if (IsEmptyModel(baseModel))
@@ -151,7 +170,7 @@ namespace Invoicing.Controllers
         }
 
         /// <summary>
-        /// Adds the save error.
+        /// Adds the save error to the current modelstate
         /// </summary>
         private void AddSaveError()
         {
