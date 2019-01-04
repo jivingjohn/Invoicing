@@ -11,29 +11,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Company\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Views\Shared\EditModel.cshtml" />
-    <Content Remove="Views\Shared\IEnumerableTable.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Update="Views\Shared\IEnumerableTable.cshtml">
-      <Generator>RazorTemplatePreprocessor</Generator>
-      <LastGenOutput>IEnumerableTable.cs</LastGenOutput>
-    </Content>
-    <Content Update="Views\Shared\IQueryableTable.cshtml">
-      <Generator>RazorTemplatePreprocessor</Generator>
-      <LastGenOutput>IQueryableTable.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Helpers\ReflectionHelpers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\Shared\IQueryableTable.cs">
-      <DependentUpon>IQueryableTable.cshtml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+
 </Project>
