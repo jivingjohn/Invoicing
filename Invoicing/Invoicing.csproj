@@ -31,4 +31,12 @@
   <ItemGroup>
     <Compile Remove="Helpers\ReflectionHelpers.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Shared\IQueryableTable.cs">
+      <DependentUpon>IQueryableTable.cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Shared\IQueryableTable.cs">
+      <DependentUpon>IQueryableTable.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

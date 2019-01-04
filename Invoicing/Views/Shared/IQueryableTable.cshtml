@@ -2,15 +2,16 @@
 
 @{
     // This won't display if model is empty...
-    var modelType = Model.FirstOrDefault(); 
+    // so create a new empty object if there isn't one for the headings
+    BaseModel modelType = Model.FirstOrDefault() ?? (BaseModel)System.Activator.CreateInstance(Model.GetType().GetGenericArguments()[0]);
 }
 
 <div class="row">
-    <div>
-        <h2>@Html.DisplayName(modelType.ModelName) Records</h2>
-    </div>
-    @if (Model != null && Model.Any())
+    @if (Model != null)
     {
+        <div>
+            <h2>@Html.DisplayName(modelType.ModelName) Records</h2>
+        </div>
         if (modelType != null)
         {
             <div class="col col-sm-12">
@@ -19,11 +20,12 @@
                         <tr>
                             @foreach (var property in modelType.GetType().GetProperties())
                             {
-                                if (property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).Any())
+                                var displayProperty = property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).SingleOrDefault();
+                                if (displayProperty != null)
                                 {
-                                    <th>
-                                        @Html.Label(property.Name)
-                                    </th>
+                            <th>
+                                @Html.Label(displayProperty.NamedArguments[0].TypedValue.Value.ToString())
+                            </th>
                                 }
                             }
                             <th>
@@ -63,13 +65,13 @@
                     </tbody>
                 </table>
             </div>
+            <div>
+                @await Html.PartialAsync("ButtonAdd", modelType)
+            </div>
         }
     }
     else
     {
-        <p>No results yet</p>
+        <h1>Null model passed to IQueryTable.cshtml</h1>
     }
-    <div>
-        @await Html.PartialAsync("ButtonAdd", modelType)
-    </div>
 </div>

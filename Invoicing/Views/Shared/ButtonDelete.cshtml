@@ -7,7 +7,7 @@
     foreach (var property in Model.GetType().GetProperties().Where(p => p.CanWrite))
     {
         // we have a settable property
-        @Html.HiddenFor(m => property)
+        <input class="text-box single-line" id=@property.Name name=@property.Name type="hidden" value="@property.GetValue(Model, null)">
     }
 
     <button type="submit" class="btn btn-submit" name=@Model.DeleteForm.ButtonName>@Model.DeleteForm.Action</button>

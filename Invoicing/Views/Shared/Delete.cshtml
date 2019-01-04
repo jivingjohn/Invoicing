@@ -11,20 +11,32 @@
 <div class="row">
     <div class="col col-sm-4"></div>
     <div class="col col-sm-4">
-        <div class="row">
-            @using (Html.BeginForm(Model.DeleteForm.Action, Model.DeleteForm.Controller))
+        <div class="row">         
+            @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                @foreach (var property in ViewData.ModelMetadata.Properties.Where(p => p.DisplayName != null))
+                if (property.DisplayName != null)
                 {
                     <div class="form-group form-inline">
                         <div class="col col-sm-6">
-                            @Html.Display(property.DisplayName)
+                            @Html.Label(property.DisplayName)
                         </div>
                         <div class="col col-sm-6">
-                            @Html.DisplayText(property.PropertyName)
+                            @Html.Editor(property.PropertyName, null, new { htmlAttributes = new { @class = "form-control", @readonly="readonly" } })
                         </div>
                     </div>
                 }
+            }
+        </div>
+        <div class="row">
+            @using (Html.BeginForm(Model.ConfirmDeleteForm.Action, Model.ConfirmDeleteForm.Controller))
+            {
+                @foreach (var property in ViewData.ModelMetadata.Properties)
+                {
+                    <div>
+                        @Html.Hidden(property.PropertyName)
+                    </div>
+                }
+
                 @await Html.PartialAsync("SaveButtons")
             }
         </div>
