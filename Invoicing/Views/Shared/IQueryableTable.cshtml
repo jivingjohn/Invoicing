@@ -1,14 +1,12 @@
 ﻿@model IQueryable<BaseModel>
 
-@{
-    // This won't display if model is empty...
-    // so create a new empty object if there isn't one for the headings
-    BaseModel modelType = Model.FirstOrDefault() ?? (BaseModel)System.Activator.CreateInstance(Model.GetType().GetGenericArguments()[0]);
-}
-
 <div class="row">
     @if (Model != null)
     {
+        // This won't display if IQueryable is empty...
+        // so create a new empty object if there isn't one for the headings
+        BaseModel modelType = Model.FirstOrDefault() ?? (BaseModel)System.Activator.CreateInstance(Model.GetType().GetGenericArguments()[0]);
+
         <div>
             <h2>@Html.DisplayName(modelType.ModelName) Records</h2>
         </div>
@@ -23,9 +21,9 @@
                                 var displayProperty = property.CustomAttributes.Where(a => a.AttributeType == typeof(System.ComponentModel.DataAnnotations.DisplayAttribute)).SingleOrDefault();
                                 if (displayProperty != null)
                                 {
-                            <th>
-                                @Html.Label(displayProperty.NamedArguments[0].TypedValue.Value.ToString())
-                            </th>
+                                    <th>
+                                        @Html.Label(displayProperty.NamedArguments[0].TypedValue.Value.ToString())
+                                    </th>
                                 }
                             }
                             <th>
@@ -63,10 +61,10 @@
                             </tr>
                         }
                     </tbody>
+                    <tfoot>
+                        @await Html.PartialAsync("ButtonAdd", modelType)
+                    </tfoot>
                 </table>
-            </div>
-            <div>
-                @await Html.PartialAsync("ButtonAdd", modelType)
             </div>
         }
     }
